@@ -99,5 +99,6 @@ public class ChestInteraction : MonoBehaviour
 
         chestClosed1.SetActive(false);
         chestOpen1.SetActive(true);
+        ChestUIManager.Instance.ShowNextChestIcon();
     }
 }
