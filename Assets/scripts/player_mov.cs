@@ -4,6 +4,7 @@ public class UnderwaterMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float verticalSpeed = 3f;
+    public float rotationSpeed = 100f;
     private Rigidbody rb;
 
     void Start()
@@ -13,22 +14,31 @@ public class UnderwaterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Input
-        float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
-        float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
+        float moveZ = Input.GetAxis("Vertical"); // W/S
         float moveY = 0f;
 
-        // Vertical movement
+        // Vertical movement (Tab = up, C/CapsLock = down)
         if (Input.GetKey(KeyCode.Tab))
         {
-            moveY = 1f; // Go up
+            moveY = 1f;
         }
         else if (Input.GetKey(KeyCode.CapsLock) || Input.GetKey(KeyCode.C))
         {
-            moveY = -1f; // Go down
+            moveY = -1f;
         }
 
-        Vector3 movement = new Vector3(moveX, moveY * verticalSpeed / speed, moveZ);
+        // Rotation with A/D
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(Vector3.up, -rotationSpeed * Time.fixedDeltaTime);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(Vector3.up, rotationSpeed * Time.fixedDeltaTime);
+        }
+
+        // Forward/backward + vertical movement
+        Vector3 movement = new Vector3(0f, moveY * verticalSpeed / speed, moveZ);
         rb.velocity = transform.TransformDirection(movement) * speed;
     }
 }
