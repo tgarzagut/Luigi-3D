@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ChestInteraction : MonoBehaviour
+public class CurseInteraction : MonoBehaviour
 {
     public GameObject chestClosed1;
     public GameObject chestOpen1;
@@ -12,9 +12,9 @@ public class ChestInteraction : MonoBehaviour
     public TextMeshProUGUI pressEText;
 
     private bool isOpened = false;
-    private static ChestInteraction currentClosestChest;
+    private static CurseInteraction currentClosestChest;
 
-    void Start()
+    void cStart()
     {
         chestClosed1.SetActive(true);
         chestOpen1.SetActive(false);
@@ -23,7 +23,7 @@ public class ChestInteraction : MonoBehaviour
             pressEText.gameObject.SetActive(false);
     }
 
-    void Update()
+    void cUpdate()
     {
         if (isOpened) return;
 
@@ -34,28 +34,28 @@ public class ChestInteraction : MonoBehaviour
             if (currentClosestChest == null || distance < Vector3.Distance(player.position, currentClosestChest.transform.position))
             {
                 if (currentClosestChest != null && currentClosestChest != this)
-                    currentClosestChest.HidePrompt();
+                    currentClosestChest.cHidePrompt();
 
                 currentClosestChest = this;
-                ShowPrompt();
+                cShowPrompt();
             }
         }
         else
         {
             if (currentClosestChest == this)
             {
-                HidePrompt();
+                cHidePrompt();
                 currentClosestChest = null;
             }
         }
 
         if (currentClosestChest == this && Input.GetKeyDown(KeyCode.E))
         {
-            StartCoroutine(OpenChest());
+            StartCoroutine(cOpenChest());
         }
     }
 
-    void ShowPrompt()
+    void cShowPrompt()
     {
         if (pressEText != null)
         {
@@ -64,16 +64,16 @@ public class ChestInteraction : MonoBehaviour
         }
     }
 
-    void HidePrompt()
+    void cHidePrompt()
     {
         if (pressEText != null)
             pressEText.gameObject.SetActive(false);
     }
 
-    System.Collections.IEnumerator OpenChest()
+    System.Collections.IEnumerator cOpenChest()
     {
         isOpened = true;
-        HidePrompt();
+        cHidePrompt();
 
         float duration = 0.2f;
         float timer = 0f;

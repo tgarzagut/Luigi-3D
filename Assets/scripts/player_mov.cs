@@ -17,7 +17,6 @@ public class UnderwaterMovement : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical"); // W/S
         float moveY = 0f;
 
-        // Vertical movement (Tab = up, C/CapsLock = down)
         if (Input.GetKey(KeyCode.Tab))
         {
             moveY = 1f;
