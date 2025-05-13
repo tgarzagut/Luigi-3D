@@ -5,6 +5,9 @@ public class PlayerLives : MonoBehaviour
 {
     public int maxLives = 3;
     private int currentLives;
+    public int CurrentLives => currentLives;
+    public int MaxLives => maxLives;
+    public GameObject diedPanel;
 
     public Image[] lifeIcons;
 
@@ -34,6 +37,8 @@ public class PlayerLives : MonoBehaviour
         if (currentLives <= 0)
         {
             Debug.Log("Player is out of lives!");
+            if (diedPanel != null)
+                diedPanel.SetActive(true);
         }
     }
 

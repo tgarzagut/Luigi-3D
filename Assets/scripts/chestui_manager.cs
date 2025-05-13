@@ -24,4 +24,10 @@ public class ChestUIManager : MonoBehaviour
             currentChestCount++;
         }
     }
+
+    public int ChestsOpened => currentChestCount;
+    public int TotalChests => chestIcons.Length;
+    public bool AllChestsOpened() {
+        return currentChestCount >= chestIcons.Length;
+    }
 }
